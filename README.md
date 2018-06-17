@@ -1,4 +1,4 @@
-# Artist Info service
+# Movie Search service
 
 A sample service intended to demonstrate a microservices environment. This service allows one to search for movies with a specified genre and revenues higher than the provided number. The results are provided as movie ids only.
 
