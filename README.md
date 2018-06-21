@@ -8,7 +8,7 @@ This service exposes a REST endpoint:
 For batched support:
 
 ``` 
-  GET /movies??genre=Drama&revenue=1000000&limit=5&offset=1
+  GET /movies?genre=Drama&revenue=1000000&limit=5&offset=1
 ```
 
 Here the query params are:
@@ -34,6 +34,95 @@ And the response is: (where the data is an array of movie ids)
         273481
     ]
 }
+```
+
+To get a full list of genres:
+
+```
+    GET /genres
+```
+
+which will return:
+
+``` javascript
+[
+    {
+        "id": 28,
+        "name": "Action"
+    },
+    {
+        "id": 12,
+        "name": "Adventure"
+    },
+    {
+        "id": 16,
+        "name": "Animation"
+    },
+    {
+        "id": 35,
+        "name": "Comedy"
+    },
+    {
+        "id": 80,
+        "name": "Crime"
+    },
+    {
+        "id": 99,
+        "name": "Documentary"
+    },
+    {
+        "id": 18,
+        "name": "Drama"
+    },
+    {
+        "id": 10751,
+        "name": "Family"
+    },
+    {
+        "id": 14,
+        "name": "Fantasy"
+    },
+    {
+        "id": 36,
+        "name": "History"
+    },
+    {
+        "id": 27,
+        "name": "Horror"
+    },
+    {
+        "id": 10402,
+        "name": "Music"
+    },
+    {
+        "id": 9648,
+        "name": "Mystery"
+    },
+    {
+        "id": 10749,
+        "name": "Romance"
+    },
+    {
+        "id": 878,
+        "name": "Science Fiction"
+    },
+    {
+        "id": 10770,
+        "name": "TV Movie"
+    },
+    {
+        "id": 53,
+        "name": "Thriller"
+    },
+    {
+        "id": 10752,
+        "name": "War"
+    },
+    {
+        "id": 37,
+        "name": "Western"
+    }
+]
 ```
 
 ## Docker

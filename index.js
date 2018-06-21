@@ -17,7 +17,7 @@ const revenueFilter = revenue => {
 
 const genreFilter = genre => {
   return movie => {
-    let genreObj = R.find(R.propEq('name', genre))(genres.genres);
+    let genreObj = R.find(R.propEq('name', genre))(genres);
     if (typeof genreObj == 'undefined') {
       throw Error(`Genre ${genre} is unknown`);
     }
@@ -76,6 +76,15 @@ app.get('/movies', (req, res) => {
   try {
     const moviesResponse = createMoviesResponse(req.query)
     res.send(moviesResponse);
+  } catch (error) {
+    console.log(error);
+    res.send({ error: error.message });
+  }
+});
+
+app.get('/genres', (req, res) => {
+  try {
+    res.send(genres);
   } catch (error) {
     console.log(error);
     res.send({ error: error.message });
