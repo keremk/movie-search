@@ -2,49 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const R = require('ramda');
 const utils = require('req-res-utils');
+const moviesHelper = require('./src/movies');
 
 const port = process.env.PORT || 3030
 const service_name = process.env.SERVICE_NAME || 'movie-search'
 const failPercent = process.env.FAIL_PERCENT || 0.3;
-
-// Load sample data
-const movies = require('./data/movie_details3.json');
-const genres = require('./data/genres.json');
-
-const revenueFilter = revenue => {
-  return movie => movie.revenue >= revenue;
-};
-
-const genreFilter = genre => {
-  return movie => {
-    let genreObj = R.find(R.propEq('name', genre))(genres);
-    if (typeof genreObj == 'undefined') {
-      throw Error(`Genre ${genre} is unknown`);
-    }
-    return R.contains({ name: genreObj.name, id: genreObj.id })(movie.genres);
-  };
-};
-
-const createMoviesResponse = (args) => {
-  const filters = [
-    {
-      "name": "revenue", 
-      "action": revenueFilter 
-    },
-    {
-      "name": "genre",
-      "action": genreFilter
-    }
-  ];
-  const filterMovies = R.curry(utils.filterItems)(args, filters);
-  const pageMovies = R.curry(utils.paging.getPagedItems)(args);
-  const pickIds = R.map(movie => movie.id)
-  return R.pipe(
-    filterMovies,
-    pickIds,
-    pageMovies,
-  )(movies);
-}
 
 // Initialize the app
 const app = express();
@@ -74,20 +36,20 @@ app.use(
 // Simple restful movies endpoint
 app.get('/movies', (req, res) => {
   try {
-    const moviesResponse = createMoviesResponse(req.query)
+    const moviesResponse = moviesHelper.createMoviesResponse(req.query)
     res.send(moviesResponse);
   } catch (error) {
     console.log(error);
-    res.send({ error: error.message });
+    res.status(404).send({ error: error.message });
   }
 });
 
 app.get('/genres', (req, res) => {
   try {
-    res.send(genres);
+    res.send(moviesHelper.genres);
   } catch (error) {
     console.log(error);
-    res.send({ error: error.message });
+    res.status(500).send({ error: error.message });
   }
 });
 
