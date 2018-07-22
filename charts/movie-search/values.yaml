@@ -3,8 +3,8 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 image:
-  repository: draft
-  tag: dev
+  repository: 10.39.240.93:5000/keremk/movie-search
+  tag: 0.0.3
   pullPolicy: IfNotPresent
 service:
   name: movie-search
