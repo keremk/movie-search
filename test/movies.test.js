@@ -2,7 +2,9 @@ const moviesHelper = require('../src/movies');
 
 test('if genre is known, we get filtered results', () => {
   const args = {
-    genre: "Drama"
+    genre: "Drama",
+    limit: 10,
+    offset: 0
   }
   const response = moviesHelper.createMoviesResponse(args);
 
