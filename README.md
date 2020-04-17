@@ -19,6 +19,9 @@ Here the query params are:
 
 You can provide a limit and offset as parameters as well. Max limit is 100.
 
+* If you provide an offset and limit, where offset + limit > total amount of results available, you will only get results up to the total available. The limit value in the metadata will be the count of results returned.
+* If you provide an offset that is larger than the total amount of results available, you will only get 1 result. The limit value in the metadata will be 1, which is the count of results returned. The offset value in the metadata will be total results - 1.
+
 And the response is: (where the data is an array of movie ids)
 
 ``` javascript
