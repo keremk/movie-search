@@ -17,6 +17,8 @@ Here the query params are:
 
 `revenue`: Matches revenues greater than what is specified here.
 
+You can provide a limit and offset as parameters as well. Max limit is 100.
+
 And the response is: (where the data is an array of movie ids)
 
 ``` javascript
